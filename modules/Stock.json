@@ -1,0 +1,38 @@
+[
+    {  
+        "id": "btc",
+        "name": "บิงชิลิ่งคอยน์ (BTC)",
+        "value": 1000,
+        "changed": "+0(+0%)"
+    },
+    {   
+        "id": "rtx",
+        "name": "การ์ดจอ (RTX)",
+        "value": 1000,
+        "changed": "+0(+0%)"
+    },
+    {   
+        "id": "crn",
+        "name": "ข้าวโพด (CRN)",
+        "value": 500,
+        "changed": "+0(+0%)"
+    },
+    {   
+        "id": "ppp",
+        "name": "น้ำมันพืช (PPP)",
+        "value": 500,
+        "changed": "+0(+0%)"
+    },
+    {   
+        "id": "pep",  
+        "name": "เปปซี่ (PEP)",
+        "value": 500,
+        "changed": "+0(+0%)"
+    },
+    {   
+        "id": "jev",
+        "name": "Jurassic ev charger (JEV)",
+        "value": 100,
+        "changed": "+0(+0%)"
+    }
+]
