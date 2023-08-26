@@ -8,12 +8,12 @@ export function display(data, message, bot) {
         for (const item of data.Stocks) {
             if (item.userid === message.author.id) {
                 found = true;
-                PortValue += (1 * item.value);
-                Stocklist.push( `${item.id} ราคา ${item.stockprice} จำนวน ${item.value} เวลาคงเหลือ ${item.time} ชั่วโมง`)
+                PortValue += (1 * item.value * item.stockprice);
+                Stocklist.push( `${item.id} ราคา ${item.stockprice} จำนวน ${(item.value * 1.00).toFixed(2)} เวลาคงเหลือ ${item.time} ชั่วโมง`)
             }
         }
     var coin = data.Players.find(player => player.id === message.author.id).Coin;
-    var Desc = "> Net Worth : $" + (coin + PortValue * 1)
+    var Desc = "> Net Worth : $" + (coin + PortValue * 1.00).toFixed(2)
     var display = new MessageEmbed()
         .setColor(0x0099FF)
         .setTitle("Account information")
@@ -21,8 +21,8 @@ export function display(data, message, bot) {
         .setDescription(Desc)
         .setThumbnail(`${message.author.avatarURL()}`)
         .addFields(
-            { name: 'Account Balanced', value: `$ ${coin}` , inline: true},
-            { name: 'Port Balanced', value: `$ ${PortValue}` , inline: true},
+            { name: 'Account Balanced', value: `$ ${(coin * 1.00).toFixed(2)}` , inline: true},
+            { name: 'Port Balanced', value: `$ ${(PortValue * 1.00).toFixed(2)}` , inline: true},
             { name: '\u200B', value: '\u200B' },
         )
         .setFooter('@นักลงทุนแมน',`${bot.user.avatarURL()}`)
@@ -38,11 +38,16 @@ export function display(data, message, bot) {
 }
 
 //display message
-export function displaymsg(header, message) {
-    const currentDate = new Date();
+export function displaymsg(header, message, bot) {
+    var Desc = "-------------------------------------------------------\n> พิจารณาความเสี่ยงก่อนการลงทุนทุกชนิด"
     const embed = new MessageEmbed()
-        .addField(header,message)
-        .setFooter(currentDate.toLocaleString())
+        .setColor(0x0099FF)
+        .setTitle(header)
+        .setAuthor(`${message.author.username}`,`${message.author.avatarURL()}`)
+        .setDescription(Desc)
+        .addField(message, "")
+        .setFooter('@นักลงทุนแมน',`${bot.user.avatarURL()}`)
+        .setTimestamp()
     return embed
 }
 

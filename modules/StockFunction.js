@@ -8,9 +8,9 @@ export function SellStock(data, item) {
     if (item.time <= 0) {
         var OwnerStock = data.Stocks.find(unit => unit.id == item.id)
         var PlayerData = data.Players.find(player => player.id == OwnerStock.userid)
-        var i = data.Players.findIndex(player => player.ID == PlayerData.id);
+        var i = data.Players.findIndex(player => player.id == PlayerData.id);
 
-        var exchange = OwnerStock.value * item.value / item.stockprice 
+        var exchange = OwnerStock.value * item.value 
         data.Players[i].Coin += exchange
         if (exchange > 0) data.Players[i].stockup++;
         else data.Players[i].stockdown++;
@@ -21,7 +21,7 @@ export function SellStock(data, item) {
 
 export function ResetStocks(id) {
     if (!FindId(id)) CreateNewId(id);
-    if (data.role == "admin") Stocks = JSON.parse(files.readFileSync("./modules/Stock.js"));
+    if (data.Players[data.Players.findIndex(players => players.id === id)].role == "admin") Stocks = JSON.parse(files.readFileSync("./modules/Stock.js"));
     console.log("Stocks reseted");
 }
 
@@ -31,10 +31,36 @@ export function CreateNewStocks(id, data, userid, stockprice, value, time) {
         {"id": id,
         "userid": userid,
         "stockprice": stockprice,
-        "value": value,
+        "value": (value / stockprice).toFixed(2),
         "time": time});
     console.log("Stocks created");
     return true;
+}
+
+export function AddStock(id, data, userid, stockprice, value, time) {
+    var BuyValue = value / stockprice;
+    data.Stocks.find((stock) => stock.id === id && stock.userid === userid).value += BuyValue;
+    data.Stocks.find((stock) => stock.id === id && stock.userid === userid).time = time;
+    return true;
+}
+export function SellSelfStocks(id, data, userid, stockprice, value) {
+    var OwnerStock = data.Stocks.find((stock) => stock.userid === userid && stock.id === id);
+    var j = data.Stocks.findIndex((stock) => stock.userid === userid && stock.id === id);
+    var i = data.Players.findIndex(player => player.id === userid);
+    console.log(i,j);
+    var CurrentValue = stockprice * OwnerStock.value * 1.0;
+    if (OwnerStock.value === value) {    
+        data.Players[i].Coin += CurrentValue.toFixed(2);
+        data.Stocks.splice(j, 1)
+        console.log("Sell successed")
+        return true;
+    }
+    else {
+        data.Players[i].Coin += CurrentValue.toFixed(2);
+        data.Stocks[j].value -= value;
+        console.log("Sell successed")
+        return true;
+    }
 }
 
 export function ChangeEveryHourStocks(data, Stocks) {
