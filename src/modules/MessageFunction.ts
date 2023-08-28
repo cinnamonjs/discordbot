@@ -1,6 +1,7 @@
-import { EmbedBuilder } from 'discord.js';
+import { EmbedBuilder, Client } from 'discord.js';
+import { UserData , StockData } from './../type.js'
 //display system
-export function display(data, user, bot) {
+export function display(data: UserData, user: any , bot: Client): EmbedBuilder {
     var found = false;
     var index = 0;
     var Stocklist = [];
@@ -39,7 +40,7 @@ export function display(data, user, bot) {
 }
 
 //display message
-export function displaymsg(header, message, user, bot) {
+export function displaymsg(header, message, user, bot): EmbedBuilder{
     var Desc = ">\n > พิจารณาความเสี่ยงก่อนการลงทุนทุกชนิด"
     const embed = new EmbedBuilder()
         .setColor(0x0099FF)
@@ -52,7 +53,7 @@ export function displaymsg(header, message, user, bot) {
     return embed
 }
 
-export function StockDisplay(stock, bot) {
+export function StockDisplay(stock, bot): EmbedBuilder {
     const display = new EmbedBuilder()
         .setColor("#00b0f4")
         .setTitle("📊 Stock board")
@@ -75,13 +76,10 @@ export function StockDisplay(stock, bot) {
 }
 
 //display commands
-export function command() {
+export function command(bot: Client) {
     var disp = new EmbedBuilder()
         .setColor("#00b0f4")
         .setTitle("📊 Bot info")
-        .addField(`Game list`, `!list | !add <name> | !remove <name> | !clear | !roll`)
-        .addField(`Coin list`, `!coin | !mining <value (0-9)> | !gacha <coin> | !feed <coin>`)
-        .addField(`Bot`, `!info`)
         .setFooter({ text: '@นักลงทุนแมน', iconURL: `${bot.user.avatarURL()}` })
         .setTimestamp()
 

@@ -2,27 +2,26 @@ import { ApplicationCommandOptionType, Client } from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 import dotenv from 'dotenv'
+import { UserData , StockData } from './type.js'
+import { commands } from './modules/Command.js';
 import {
     AddStock,
     SellSelfStocks,
-    ResetStocks,
     CreateNewStocks,
     ChangeEveryHourStocks,
 } from './modules/StockFunction.js';
 
 import {
     CreateNewId,
-    AddCoin,
     CheckCoin,
     RemoveCoin,
 } from './modules/PlayerFunction.js';
 
-import {
-    display,
-    displaymsg,
-    command,
-    StockDisplay,
-} from './modules/MessageFunction.js';
+    import {
+        display,
+        displaymsg,
+        StockDisplay,
+    } from './modules/MessageFunction.js';
 import * as files from "fs"
 
 const client = new Client({
@@ -30,12 +29,17 @@ const client = new Client({
 });
 
 dotenv.config()
+const token: string = process.env.CLIENT_TOKEN
 
-const rest = new REST({ version: '10' }).setToken(process.env.CLIENT_TOKEN);
+const rest = new REST({ version: '10' }).setToken(token);
 var TimeMinutes = 60;
+
 // Create Stocks
-var StockArray = JSON.parse(files.readFileSync('./modules/Stock.json'));
-var data = [];
+var StockArray: StockData[] = JSON.parse(files.readFileSync('./modules/Stock.json', 'utf8'));
+var data: UserData = {
+    Players: [],
+    Stocks: [],
+};
 
 function Readfiles() {
     // read-file
@@ -43,7 +47,7 @@ function Readfiles() {
     data = JSON.parse(rawdata);
 }
 
-function Writefile(path, data) {
+function Writefile(path: string, data: any) {
     files.writeFileSync(path, JSON.stringify(data));
 }
 
@@ -59,7 +63,7 @@ client.on('ready', async () => {
         try {
             console.log(`Registering commands for ${guild.name}: ${guildId}`);
             await rest.put(
-                Routes.applicationGuildCommands(process.env.CLIENT_ID, guildId),
+                Routes.applicationGuildCommands(`${client.user.id}`,`${guildId}`),
                 { body: commands },
             );
             console.log(`Commands registered for ${guild.name}: ${guildId}`);
@@ -93,92 +97,27 @@ client.on('guildCreate', async (guild) => {
 setInterval(() => {
     ChangeEveryHourStocks(data, StockArray);
     Writefile('Players.json', data)
-    console.log(StockArray)
-    TimeMinutes = 60;
     Reminders(TimeMinutes);
 }, 60 * 60 * 1000);
 
 // Reminders time function
-async function Reminders(time) {
+async function Reminders(time: number) {
     for (let i = time; i > 0; i--) {
-        client.user.setActivity(`${i} mins before changed`);
+        client.user.setActivity(`${i} mins reminding.`);
         await new Promise(resolve => setTimeout(resolve, 60 * 1000));
     }
 }
 
 //login
-client.login(process.env.CLIENT_TOKEN);
-
-// Define your slash command
-const commands = [
-    {
-        name: 'stock',
-        description: 'See stock board',
-    },
-    {
-        name: 'me',
-        description: 'show information about yourself',
-    },
-    {
-        name: 'buy',
-        description: 'buy stock / ซื้อหุ้น',
-        options: [
-            {
-                name: 'stock_id',
-                description: 'stock id / รหัสหุ่น "btc" "rtx" "crn" etc.',
-                type: 3,
-                required: true,
-            },
-            {
-                name: 'buy_amount',
-                description: 'how much / เท่าไหร่   1000 100 10',
-                type: 10,
-                required: true,
-            },
-        ],
-    },
-    {
-        name: 'sell',
-        description: 'sell stock / ขายหุ้น',
-        options: [
-            {
-                name: 'stock_id',
-                description: 'stock id / รหัสหุ่น "btc" "rtx" "crn" etc.',
-                type: 3,
-                required: true,
-            },
-            {
-                name: 'sell_amount',
-                description: 'how much / เท่าไหร่ 1000 100 10',
-                type: 10,
-                required: true,
-            },
-        ],
-    },
-];
+client.login(token);
 
 //check id is in json list
-function FindId(id) {
+function FindId(id: string) {
     Readfiles()
     var p = data.Players.find(player => player.id == id)
     if (p == undefined) return false
     else return true
 }
-
-// find index of json list
-function Findindex(id) {
-    Readfiles()
-    return data.Players.findIndex(player => player.id == id)
-}
-
-client.on('message', (message) => {
-    var commands = message.content.toLocaleLowerCase().split(" ");
-    if (commands[0] === '!change') {
-        ChangeEveryHourStocks(data, StockArray)
-        Writefile('Players.json', data)
-        console.log(StockArray)
-    }
-});
 
 client.on('interactionCreate', async (interaction) => {
     try {
@@ -219,7 +158,7 @@ client.on('interactionCreate', async (interaction) => {
                         Writefile('Players.json', data);
                     }
                     else {
-                        var success = CreateNewStocks(stockId, data, userId, StockArray.find((stock) => stock.id === stockId).value, stockValue, 24);
+                        var success = CreateNewStocks(stockId, data, userId, StockArray.find((stock) => stock.id === stockId).value, stockValue, 2);
                         if (success) success = RemoveCoin(data, userId, stockValue)
                         if (success) await interaction.reply({ embeds: [displaymsg('ซื้อหุ้น 💵', 'ซื้อหุ้น ' + stockId + " ที่ราคา " + StockArray.find((stock) => stock.id === stockId).value + " จำนวน " + stockValue + ' สำเร็จ', user, client)] })
                         Writefile('Players.json', data);
@@ -229,8 +168,7 @@ client.on('interactionCreate', async (interaction) => {
         }
         if (commandName === 'sell') {
             const stockId = options.getString('stock_id').toLocaleLowerCase();
-            const sellValue = options.getNumber('sell_amount');
-            console.log(sellValue)
+            var sellValue = options.getNumber('sell_amount');
             const OwnerStock = data.Stocks.find((stock) => stock.userid === userId && stock.id === stockId);
             //function partition
             if (!FindId(userId)) CreateNewId(data, userId, userName), Writefile('Players.json', data);
@@ -248,6 +186,12 @@ client.on('interactionCreate', async (interaction) => {
                     }
                 }
             }
+        }
+        if (commandName === "test") {
+            ChangeEveryHourStocks(data, StockArray)
+            Reminders(TimeMinutes)
+            Writefile('Players.json', data)
+            await interaction.reply('ok!')
         }
     }
     catch (error) {

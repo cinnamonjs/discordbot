@@ -8,7 +8,7 @@ import {
     ButtonBuilder
 } from "discord.js";
 
-export async function Gamble(interaction) {
+export async function Gamble(interaction: any) {
     const { commandName, options, user, guild } = interaction;
     const subcommand = interaction.options.getSubcommand()
     let suggestionMessage;
