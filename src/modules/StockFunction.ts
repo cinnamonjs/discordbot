@@ -103,7 +103,7 @@ export function ChangeStocked(StockArray: StockData[], id: string, IsStockedUp: 
     var i = StockArray.findIndex(item => item.id == id)
     var Changebase = Math.random() * randombase;
     var CritChangebase = IsCrit * critRate;
-    var NewValue = (Stockitem.value + IsStockedUp ? 1 : -1 * (base * 1 + Changebase * 1 + CritChangebase * 1));
+    var NewValue = Stockitem.value + (IsStockedUp ? 1 : -1) * (base + Changebase + CritChangebase);
     if (NewValue < 0) NewValue = 0.01;
     var OldValue = StockArray.at(i).value
     var NumberChange = parseFloat((NewValue - OldValue).toFixed(2));

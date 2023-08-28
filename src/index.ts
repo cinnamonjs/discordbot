@@ -158,7 +158,7 @@ client.on('interactionCreate', async (interaction) => {
                         Writefile('Players.json', data);
                     }
                     else {
-                        var success = CreateNewStocks(stockId, data, userId, StockArray.find((stock) => stock.id === stockId).value, stockValue, 2);
+                        var success = CreateNewStocks(stockId, data, userId, StockArray.find((stock) => stock.id === stockId).value, stockValue, 24);
                         if (success) success = RemoveCoin(data, userId, stockValue)
                         if (success) await interaction.reply({ embeds: [displaymsg('ซื้อหุ้น 💵', 'ซื้อหุ้น ' + stockId + " ที่ราคา " + StockArray.find((stock) => stock.id === stockId).value + " จำนวน " + stockValue + ' สำเร็จ', user, client)] })
                         Writefile('Players.json', data);
