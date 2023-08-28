@@ -208,20 +208,20 @@ client.on('interactionCreate', async (interaction) => {
             const stockId = options.getString('stock_id').toLocaleLowerCase();
             const stockValue = options.getNumber('buy_amount');
             if (!FindId(userId)) CreateNewId(data, userId, userName), Writefile('Players.json', data);
-            if (!CheckCoin(data, userId, stockValue)) await interaction.reply({ embeds: [displaymsg('ซื้อหุ้น', 'เงินไม่พอที่จะซื้อหุ้นจำนวน ' + stockValue, user, client)] })
+            if (!CheckCoin(data, userId, stockValue)) await interaction.reply({ embeds: [displaymsg('ซื้อหุ้น 💵', 'เงินไม่พอที่จะซื้อหุ้นจำนวน ' + stockValue, user, client)] })
             else {
-                if (StockArray.find((stock) => stock.id === stockId) === undefined) await interaction.reply({ embeds: [displaymsg('ซื้อหุ้น', 'ไม่พบหุ้นที่ต้องการ', user, client)] })
+                if (StockArray.find((stock) => stock.id === stockId) === undefined) await interaction.reply({ embeds: [displaymsg('ซื้อหุ้น 💵', 'ไม่พบหุ้นที่ต้องการ', user, client)] })
                 else {
                     if (data.Stocks.find((stock) => stock.id === stockId && stock.userid === userId) !== undefined) {
                         var Addsuccess = AddStock(stockId, data, userId, StockArray.find((stock) => stock.id === stockId).value, stockValue, 24);
                         if (Addsuccess) success = RemoveCoin(data, userId, stockValue)
-                        if (Addsuccess) await interaction.reply({ embeds: [displaymsg('ซื้อหุ้น', 'ซื้อหุ้น ' + stockId + " ที่ราคา " + StockArray.find((stock) => stock.id === stockId).value + " จำนวน " + stockValue + ' สำเร็จ', user, client)] })
+                        if (Addsuccess) await interaction.reply({ embeds: [displaymsg('ซื้อหุ้น 💵', 'ซื้อหุ้น ' + stockId + " ที่ราคา " + StockArray.find((stock) => stock.id === stockId).value + " จำนวน " + stockValue + ' สำเร็จ', user, client)] })
                         Writefile('Players.json', data);
                     }
                     else {
                         var success = CreateNewStocks(stockId, data, userId, StockArray.find((stock) => stock.id === stockId).value, stockValue, 24);
                         if (success) success = RemoveCoin(data, userId, stockValue)
-                        if (success) await interaction.reply({ embeds: [displaymsg('ซื้อหุ้น', 'ซื้อหุ้น ' + stockId + " ที่ราคา " + StockArray.find((stock) => stock.id === stockId).value + " จำนวน " + stockValue + ' สำเร็จ', user, client)] })
+                        if (success) await interaction.reply({ embeds: [displaymsg('ซื้อหุ้น 💵', 'ซื้อหุ้น ' + stockId + " ที่ราคา " + StockArray.find((stock) => stock.id === stockId).value + " จำนวน " + stockValue + ' สำเร็จ', user, client)] })
                         Writefile('Players.json', data);
                     }
                 }
@@ -235,16 +235,16 @@ client.on('interactionCreate', async (interaction) => {
             //function partition
             if (!FindId(userId)) CreateNewId(data, userId, userName), Writefile('Players.json', data);
             if (sellValue === undefined) sellValue = OwnerStock.value;
-            if (StockArray.find((stock) => stock.id === stockId) === undefined) await interaction.reply({ embeds: [displaymsg('ขายหุ้น', 'ไม่พบหุ้นที่ต้องการ', user, client)] })
+            if (StockArray.find((stock) => stock.id === stockId) === undefined) await interaction.reply({ embeds: [displaymsg('ขายหุ้น 💸', 'ไม่พบหุ้นที่ต้องการ 💸', user, client)] })
             else {
-                if (OwnerStock === undefined) await interaction.reply({ embeds: [displaymsg('ขายหุ้น', 'ไม่พบรายการการขายที่ต้องการ', user, client)] })
+                if (OwnerStock === undefined) await interaction.reply({ embeds: [displaymsg('ขายหุ้น 💸', 'ไม่พบรายการการขายที่ต้องการ', user, client)] })
                 else {
                     if (OwnerStock.value >= sellValue) {
                         var success = SellSelfStocks(stockId, data, userId, StockArray.find((stock) => stock.id === stockId).value, sellValue);
-                        if (success) await interaction.reply({ embeds: [displaymsg('ขายหุ้น', 'ขายหุ้น ' + stockId + " ที่ราคา " + StockArray.find((stock) => stock.id === stockId).value + " จำนวน " + sellValue + ' สำเร็จ', user, client)] })
+                        if (success) await interaction.reply({ embeds: [displaymsg('ขายหุ้น 💸', 'ขายหุ้น ' + stockId + " ที่ราคา " + StockArray.find((stock) => stock.id === stockId).value + " จำนวน " + sellValue + ' สำเร็จ', user, client)] })
                         Writefile('Players.json', data);
                     } else {
-                        await interaction.reply({ embeds: [displaymsg('ขายหุ้น', 'จำนวนที่ระบุไม่ถูกต้อง', user, client)] })
+                        await interaction.reply({ embeds: [displaymsg('ขายหุ้น 💸', 'จำนวนที่ระบุไม่ถูกต้อง', user, client)] })
                     }
                 }
             }

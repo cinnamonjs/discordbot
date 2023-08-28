@@ -6,16 +6,15 @@ export function CheckTimerStock(data, item) {
 
 export function SellStock(data, item) {
     if (item.time <= 0) {
-        var OwnerStock = data.Stocks.find(unit => unit.id == item.id)
-        var PlayerData = data.Players.find(player => player.id == OwnerStock.userid)
-        var i = data.Players.findIndex(player => player.id == PlayerData.id);
+        var i = data.Stocks.findIndex(player => player.id == item.id);
+        var j = data.Players.findIndex(player => player.id == item.userid);
+        var OwnerStock = data.Stocks.at(i);
+        var PlayerData = data.Players.at(j);
 
-        var exchange = OwnerStock.value * item.value 
+        var exchange = parseFloat(OwnerStock.value * item.value * 1.00).toFixed(2)
         data.Players[i].Coin += exchange
-        if (exchange > 0) data.Players[i].stockup++;
-        else data.Players[i].stockdown++;
 
-        delete data.Stock[data.Players.findIndex(player => player.id == OwnerStock.id)];
+        data.Stocks.splice(j, 1)
     }
 }
 
@@ -39,8 +38,13 @@ export function CreateNewStocks(id, data, userid, stockprice, value, time) {
 
 export function AddStock(id, data, userid, stockprice, value, time) {
     var BuyValue = value / stockprice * 1.00;
-    data.Stocks.find((stock) => stock.id === id && stock.userid === userid).value += BuyValue;
-    data.Stocks.find((stock) => stock.id === id && stock.userid === userid).time = time;
+    var i = data.Stocks.findIndex((stock) => stock.id === id && stock.userid === userid)
+    var price = data.stock.at(i).value
+    var variantStockprice = parseFloat((data.Stock.at(i).stockprice * price * 1.00 + stockprice * value * 1.00) / (price + value * 1.00)).toFixed(2);
+    data.Stocks.at(i).value += BuyValue;
+    data.Stocks.at(i).time = time;
+    data.stocks.at(i).stockprice += variantStockprice;
+    console.log("Add successed")
     return true;
 }
 
@@ -48,7 +52,7 @@ export function SellSelfStocks(id, data, userid, stockprice, value) {
     var OwnerStock = data.Stocks.find((stock) => stock.userid === userid && stock.id === id);
     var j = data.Stocks.findIndex((stock) => stock.userid === userid && stock.id === id);
     var i = data.Players.findIndex(player => player.id === userid);
-    console.log(i,j);
+
     var CurrentValue = stockprice * OwnerStock.value * 1.00;
     if (OwnerStock.value === value) {    
         data.Players[i].Coin += parseFloat(CurrentValue.toFixed(2));
@@ -73,7 +77,7 @@ export function ChangeEveryHourStocks(data, Stocks) {
     // Change item 2 (50 : 50)
     var changed2 = Math.floor(Math.random() * 10)
     var StockedUp2 = [0, 2, 3, 5, 8]
-    ChangeStocked(Stocks, "rtx", StockedUp2.includes(changed2), (critChanged === changed2), 8.0, 22.0, 15.0)
+    ChangeStocked(Stocks, "rtx", StockedUp2.includes(changed2), (critChanged === changed2), 10.0, 22.0, 15.0)
     // Change item 3 (70 : 30)
     var changed3 = Math.floor(Math.random() * 10)
     var StockedUp3 = [0, 2, 3, 4, 5, 7, 8]
@@ -88,7 +92,7 @@ export function ChangeEveryHourStocks(data, Stocks) {
     ChangeStocked(Stocks, "pep", StockedUp5.includes(changed5), (critChanged === changed5), 5.0, 4.0, 7.0)
     // Change item 6 (90 : 10)
     var changed6 = Math.floor(Math.random() * 10)
-    ChangeStocked(Stocks, "jev", (changed6 !== 9), (critChanged === changed6), 0.1, 0.3, 0.5)
+    ChangeStocked(Stocks, "jev", (changed6 !== 9), (critChanged === changed6), 0.1, 0.2, 0.4)
     console.log("Stocks changed");
     console.log("--------------------------------")
     if (data.Stocks.length > 0) for (const item of data.Stocks) {
@@ -106,8 +110,8 @@ export function ChangeStocked(StockArray, id , IsStockedUp , IsCrit , base , ran
     var NewValue =  (Stockitem.value + (IsStockedUp ? 1 : -1) * (base * 1 + Changebase * 1 + CritChangebase * 1));
     if (NewValue < 0) NewValue = 0.01;
     var OldValue = StockArray.at(i).value
-    var NumberChange = Math.round(NewValue - OldValue);
-    var PercentChange = Math.round((NewValue - OldValue) / OldValue * 100);
+    var NumberChange = parseFloat(NewValue - OldValue).toFixed[2];
+    var PercentChange = parseFloat((NewValue - OldValue) / OldValue * 100).toFixed(2);
     StockArray.at(i).value = (typeof NewValue === 'number' ? parseInt(NewValue.toFixed(2)) : parseInt(NewValue))
-    StockArray.at(i).changed = (NumberChange >= 0 ? '+' : '') + (NumberChange.toString()) + "(" + (PercentChange >= 0 ? '+' : '') + (PercentChange.toString()) +"%)";
+    StockArray.at(i).changed = (NumberChange >= 0 ? '➚ +' : '➘ ') + (NumberChange.toString()) + "(" + (PercentChange >= 0 ? '+' : '') + (PercentChange.toString()) +"%)";
 }

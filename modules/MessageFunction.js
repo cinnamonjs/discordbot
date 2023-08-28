@@ -10,7 +10,7 @@ export function display(data, user, bot) {
             if (item.userid === user.id && index < 4) {
                 found = true;
                 PortValue += (1.00 * item.value * item.stockprice);
-                Stocklist.push(`${item.id} ราคา ${item.stockprice} จำนวน ${(item.value * 1.00).toFixed(2)} เวลาคงเหลือ ${item.time} ชั่วโมง`)
+                Stocklist.push(`${item.id} ราคา ${item.stockprice} \t จำนวน ${(item.value * 1.00).toFixed(2)} \t เวลาคงเหลือ ${item.time} ชั่วโมง`)
                 index++;
             }
         }
@@ -40,7 +40,7 @@ export function display(data, user, bot) {
 
 //display message
 export function displaymsg(header, message, user, bot) {
-    var Desc = "-------------------------------------------------------\n> พิจารณาความเสี่ยงก่อนการลงทุนทุกชนิด"
+    var Desc = ">\n > พิจารณาความเสี่ยงก่อนการลงทุนทุกชนิด"
     const embed = new EmbedBuilder()
         .setColor(0x0099FF)
         .setTitle(header)
@@ -56,7 +56,7 @@ export function StockDisplay(stock, bot) {
     const display = new EmbedBuilder()
         .setColor("#00b0f4")
         .setTitle("📊 Stock board")
-        .setDescription("-------------------------------------------------------\n> 🕐 Stock board are changed every hours")
+        .setDescription("> \n> 🕐 Stock board are changed every hours")
         .setAuthor({ name: "info", iconURL: `${bot.user.avatarURL()}` })
         .setThumbnail(`${bot.user.avatarURL()}`)
         .addFields({ name: '\u200B', value: '\u200B' })
@@ -74,14 +74,16 @@ export function StockDisplay(stock, bot) {
     return display
 }
 
-export function BuyStock(stock, message, value, bot) { }
 //display commands
 export function command() {
-    const currentDate = new Date();
-    var disp = new Discord.EmbedBuilder()
+    var disp = new EmbedBuilder()
+        .setColor("#00b0f4")
+        .setTitle("📊 Bot info")
         .addField(`Game list`, `!list | !add <name> | !remove <name> | !clear | !roll`)
         .addField(`Coin list`, `!coin | !mining <value (0-9)> | !gacha <coin> | !feed <coin>`)
         .addField(`Bot`, `!info`)
-        .setFooter(`@นักลงทุนแมน` + currentDate.toLocaleString())
+        .setFooter({ text: '@นักลงทุนแมน', iconURL: `${bot.user.avatarURL()}` })
+        .setTimestamp()
+
     return disp
 }
