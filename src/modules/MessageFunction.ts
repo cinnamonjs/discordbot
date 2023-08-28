@@ -11,7 +11,7 @@ export function display(data: UserData, user: any , bot: Client): EmbedBuilder {
             if (item.userid === user.id && index < 4) {
                 found = true;
                 PortValue += (1.00 * item.value * item.stockprice);
-                Stocklist.push(`${item.id} ราคา ${item.stockprice} \t จำนวน ${(item.value * 1.00).toFixed(2)} \t เวลาคงเหลือ ${item.time} ชั่วโมง`)
+                Stocklist.push(`${item.id} ราคา ${item.stockprice} \u2002 จำนวน ${(item.value * 1.00).toFixed(2)} \u2002 เวลาคงเหลือ ${item.time} ชั่วโมง`)
                 index++;
             }
         }
