@@ -40,8 +40,8 @@ export function display(data: UserData, user: any , bot: Client): EmbedBuilder {
 }
 
 //display message
-export function displaymsg(header, message, user, bot): EmbedBuilder{
-    var Desc = ">\n > พิจารณาความเสี่ยงก่อนการลงทุนทุกชนิด"
+export function displaymsg(header: string, message: string, user: any, bot: Client): EmbedBuilder{
+    var Desc = "> \u200B \n > พิจารณาความเสี่ยงก่อนการลงทุนทุกชนิด"
     const embed = new EmbedBuilder()
         .setColor(0x0099FF)
         .setTitle(header)
@@ -53,11 +53,11 @@ export function displaymsg(header, message, user, bot): EmbedBuilder{
     return embed
 }
 
-export function StockDisplay(stock, bot): EmbedBuilder {
+export function StockDisplay(stock: StockData[], bot: Client): EmbedBuilder {
     const display = new EmbedBuilder()
         .setColor("#00b0f4")
         .setTitle("📊 Stock board")
-        .setDescription("> \n> 🕐 Stock board are changed every hours")
+        .setDescription("> \u200B \n> 🕐 Stock board are changed every hours")
         .setAuthor({ name: "info", iconURL: `${bot.user.avatarURL()}` })
         .setThumbnail(`${bot.user.avatarURL()}`)
         .addFields({ name: '\u200B', value: '\u200B' })

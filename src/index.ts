@@ -2,7 +2,7 @@ import { ApplicationCommandOptionType, Client } from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 import dotenv from 'dotenv'
-import { UserData , StockData } from './type.js'
+import { UserData, StockData } from './type.js'
 import { commands } from './modules/Command.js';
 import {
     AddStock,
@@ -17,11 +17,11 @@ import {
     RemoveCoin,
 } from './modules/PlayerFunction.js';
 
-    import {
-        display,
-        displaymsg,
-        StockDisplay,
-    } from './modules/MessageFunction.js';
+import {
+    display,
+    displaymsg,
+    StockDisplay,
+} from './modules/MessageFunction.js';
 import * as files from "fs"
 
 const client = new Client({
@@ -63,7 +63,7 @@ client.on('ready', async () => {
         try {
             console.log(`Registering commands for ${guild.name}: ${guildId}`);
             await rest.put(
-                Routes.applicationGuildCommands(`${client.user.id}`,`${guildId}`),
+                Routes.applicationGuildCommands(`${client.user.id}`, `${guildId}`),
                 { body: commands },
             );
             console.log(`Commands registered for ${guild.name}: ${guildId}`);
@@ -153,14 +153,16 @@ client.on('interactionCreate', async (interaction) => {
                 else {
                     if (data.Stocks.find((stock) => stock.id === stockId && stock.userid === userId) !== undefined) {
                         var Addsuccess = AddStock(stockId, data, userId, StockArray.find((stock) => stock.id === stockId).value, stockValue, 24);
-                        if (Addsuccess) success = RemoveCoin(data, userId, stockValue)
-                        if (Addsuccess) await interaction.reply({ embeds: [displaymsg('ซื้อหุ้น 💵', 'ซื้อหุ้น ' + stockId + " ที่ราคา " + StockArray.find((stock) => stock.id === stockId).value + " จำนวน " + stockValue + ' สำเร็จ', user, client)] })
+                        if (Addsuccess)
+                            success = RemoveCoin(data, userId, stockValue),
+                                await interaction.reply({ embeds: [displaymsg('ซื้อหุ้น 💵', 'ซื้อหุ้น ' + stockId + " ที่ราคา " + StockArray.find((stock) => stock.id === stockId).value + " จำนวน " + stockValue + ' สำเร็จ', user, client)] })
                         Writefile('Players.json', data);
                     }
                     else {
                         var success = CreateNewStocks(stockId, data, userId, StockArray.find((stock) => stock.id === stockId).value, stockValue, 24);
-                        if (success) success = RemoveCoin(data, userId, stockValue)
-                        if (success) await interaction.reply({ embeds: [displaymsg('ซื้อหุ้น 💵', 'ซื้อหุ้น ' + stockId + " ที่ราคา " + StockArray.find((stock) => stock.id === stockId).value + " จำนวน " + stockValue + ' สำเร็จ', user, client)] })
+                        if (success)
+                            success = RemoveCoin(data, userId, stockValue),
+                                await interaction.reply({ embeds: [displaymsg('ซื้อหุ้น 💵', 'ซื้อหุ้น ' + stockId + " ที่ราคา " + StockArray.find((stock) => stock.id === stockId).value + " จำนวน " + stockValue + ' สำเร็จ', user, client)] })
                         Writefile('Players.json', data);
                     }
                 }

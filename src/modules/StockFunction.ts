@@ -64,30 +64,30 @@ export function SellSelfStocks(id: string, data: UserData, userid: string, stock
         return true;
     }
 }
-
+function CheckChange(x: number, y: number): number {
+    return (x > y) ? 1 : 0
+}
+function CheckCrit(x: number, y: number): number {
+    return (x = y) ? 1 : 0
+}
 export function ChangeEveryHourStocks(data: UserData, Stocks: StockData[]) {
-    var critChanged = Math.floor(Math.random() * 20)
-    // Change item 1 (60 : 40)
+    var critChanged = Math.floor(Math.random() * 100)
     var changelist = []
     for (let i = 0; i <= 6; i++) {
-        changelist[i] = Math.floor(Math.random() * 10)
+        changelist[i] = Math.floor(Math.random() * 100)
     }
-    var StockedUp = [0, 1, 2, 3, 4, 5]
-    ChangeStocked(Stocks, "btc", StockedUp.includes(changelist[0]) ? 1 : 0, (critChanged === changelist[0]) ? 1 : 0, 18.0, 8.0, 115.0)
-    // Change item 2 (50 : 50)
-    var StockedUp2 = [0, 2, 3, 5, 8]
-    ChangeStocked(Stocks, "rtx", StockedUp2.includes(changelist[1]) ? 1 : 0, (critChanged === changelist[1]) ? 1 : 0, 10.0, 22.0, 15.0)
-    // Change item 3 (70 : 30)
-    var StockedUp3 = [0, 2, 3, 4, 5, 7, 8]
-    ChangeStocked(Stocks, "crn", StockedUp3.includes(changelist[2]) ? 1 : 0, (critChanged === changelist[2]) ? 1 : 0, 9.0, 4.0, 10.0)
-    // Change item 4 (70 : 30)
-    var StockedUp4 = [0, 2, 3, 4, 5, 7, 8]
-    ChangeStocked(Stocks, "ppp", StockedUp4.includes(changelist[3]) ? 1 : 0, (critChanged === changelist[3]) ? 1 : 0, 6.0, 11.0, 10.0)
-    // Change item 5 (60 : 40)
-    var StockedUp5 = [0, 2, 3, 4, 5, 9]
-    ChangeStocked(Stocks, "pep", StockedUp5.includes(changelist[4]) ? 1 : 0, (critChanged === changelist[4]) ? 1 : 0, 5.0, 4.0, 7.0)
-    // Change item 6 (90 : 10)
-    ChangeStocked(Stocks, "jev", (changelist[5] !== 9) ? 1 : 0, (critChanged === changelist[5]) ? 1 : 0, 0.1, 0.2, 0.4)
+    // change item 1 67% at 18.0 bonus 10.0
+    ChangeStocked(Stocks, "btc", CheckChange(changelist[0], 67), CheckCrit(critChanged, changelist[0]), 18.0, 10.0, 115.0)
+    // Change item 2 54% at 8.0 bonus 24.0
+    ChangeStocked(Stocks, "rtx", CheckChange(changelist[1], 54), CheckCrit(critChanged, changelist[1]), 8.0, 24.0, 55.0)
+    // Change item 3 32% at 5.0 bonus 4.0
+    ChangeStocked(Stocks, "crn", CheckChange(changelist[2], 32), CheckCrit(critChanged, changelist[2]), 5.0, 4.0, 30.0)
+    // Change item 4 30% at 0.0 bonus 8.0
+    ChangeStocked(Stocks, "ppp", CheckChange(changelist[3], 31), CheckCrit(critChanged, changelist[3]), 0.0, 8.0, 30.0)
+    // Change item 5 25% at 1.0 bonus 1.5
+    ChangeStocked(Stocks, "pep", CheckChange(changelist[4], 25), CheckCrit(critChanged, changelist[4]), 1.0, 1.5, 15.0)
+    // Change item 6 9% at 0.1 bonus 0.2 
+    ChangeStocked(Stocks, "jev", CheckChange(changelist[5], 9), CheckCrit(critChanged, changelist[5]), 0.1, 0.2, 1)
     console.log("Stocks changed");
     console.log("--------------------------------")
     if (data.Stocks.length > 0)
@@ -101,13 +101,15 @@ export function ChangeEveryHourStocks(data: UserData, Stocks: StockData[]) {
 export function ChangeStocked(StockArray: StockData[], id: string, IsStockedUp: number, IsCrit: number, base: number, randombase: number, critRate: number) {
     var Stockitem = StockArray.find((item) => item.id === id);
     var i = StockArray.findIndex(item => item.id == id)
+    //calculate random variable
     var Changebase = Math.random() * randombase;
     var CritChangebase = IsCrit * critRate;
+    //calculate Value changed
     var NewValue = Stockitem.value + (IsStockedUp ? 1 : -1) * (base + Changebase + CritChangebase);
     if (NewValue < 0) NewValue = 0.01;
     var OldValue = StockArray.at(i).value
     var NumberChange = parseFloat((NewValue - OldValue).toFixed(2));
-    var PercentChange = parseFloat(((NewValue - OldValue) * 100 / OldValue ).toFixed(2));
+    var PercentChange = parseFloat(((NewValue - OldValue) * 100 / OldValue).toFixed(2));
     StockArray.at(i).value = parseFloat(NewValue.toFixed(2));
     StockArray.at(i).changed = (NumberChange >= 0 ? '➚ +' : '➘ ') + (NumberChange) + "(" + (PercentChange >= 0 ? '+' : '') + (PercentChange) + "%)";
 }
