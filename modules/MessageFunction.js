@@ -16,24 +16,23 @@ export function display(data, user, bot) {
         }
     var coin = data.Players.find(player => player.id === user.id).Coin;
     var networth = (1.00 * (coin + PortValue)).toFixed(2)
-
-    var Desc = "> Net Worth : $" + (coin + PortValue * 1.00).toFixed(2)
+    var Desc = "> 💰 Net Worth : $" + networth
 
     var display = new EmbedBuilder()
         .setColor(0x0099FF)
-        .setTitle("Account information")
+        .setTitle("🏦 Account information")
         .setAuthor({ name: `${user.username}`, iconURL: `${user.avatarURL()}` })
         .setDescription(Desc)
         .setThumbnail(`${user.avatarURL()}`)
         .addFields(
-            { name: 'Account Balanced', value: `$ ${(coin * 1.00).toFixed(2)}`, inline: true },
-            { name: 'Port Balanced', value: `$ ${(PortValue).toFixed(2)}`, inline: true },
+            { name: '💵 Account Balanced', value: `$ ${(coin * 1.00).toFixed(2)}`, inline: true },
+            { name: '📈 Port Balanced', value: `$ ${(PortValue).toFixed(2)}`, inline: true },
             { name: '\u200B', value: '\u200B' },
         )
         .setFooter({ text: '@นักลงทุนแมน', iconURL: `${bot.user.avatarURL()}` })
         .setTimestamp()
 
-    if (Stocklist.length > 0) display.addFields({ name: 'Stocks (หุ้น)', value: Stocklist.join('\n') })
+    if (Stocklist.length > 0) display.addFields({ name: '🏷️ Stocks (หุ้น)', value: Stocklist.join('\n') })
     if (!found) display.addFields({ name: 'Stocks (หุ้น)', value: '-' })
     display.addFields({ name: '\u200B', value: '\u200B' })
     return display
@@ -56,8 +55,8 @@ export function displaymsg(header, message, user, bot) {
 export function StockDisplay(stock, bot) {
     const display = new EmbedBuilder()
         .setColor("#00b0f4")
-        .setTitle("Stock board")
-        .setDescription("-------------------------------------------------------\n> Stock board are changed every hours")
+        .setTitle("📊 Stock board")
+        .setDescription("-------------------------------------------------------\n> 🕐 Stock board are changed every hours")
         .setAuthor({ name: "info", iconURL: `${bot.user.avatarURL()}` })
         .setThumbnail(`${bot.user.avatarURL()}`)
         .addFields({ name: '\u200B', value: '\u200B' })
