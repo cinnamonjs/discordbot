@@ -13,6 +13,10 @@ export const commands = [
         description: 'show information about yourself',
     },
     {
+        name: 'graph',
+        description: 'show graph with stock board',
+    },
+    {
         name: 'buy',
         description: 'buy stock / ซื้อหุ้น',
         options: [

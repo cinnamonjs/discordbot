@@ -1,6 +1,49 @@
 import { User } from "discord.js";
-import { Stock, StockData, UserData } from "../type.js";
+import * as files from 'fs';
+import { Stock, StockData, UserData, LogData } from "../type.js";
 
+const LOGS_FILE: string = './log.json'
+const MAX_LOGS: number = 10;
+
+var logs: LogData[] = Readlogs();
+
+function Readlogs(): LogData[] {
+    try {
+        const data = files.readFileSync(LOGS_FILE, 'utf8');
+        return JSON.parse(data);
+    }
+    catch (err) {
+        // If the file doesn't exist or has an error, return an empty array
+        return [];
+    }
+}
+
+function addLog(stocks: StockData[]): void {
+    const newLog: LogData = {
+        stock: stocks,
+        index: 0
+    }
+    logs.push(newLog);
+    logs.forEach((log) => {
+        log.index += 1;
+    })
+    if (logs.length >= MAX_LOGS) {
+        const highestIndex = logs.reduce((prev, current) => (current.index > prev.index ? current : prev));
+        console.log(highestIndex)
+        logs = logs.filter(log => log !== highestIndex);
+    }
+    saveLogsToFile()
+}
+
+// Save logs to the file
+function saveLogsToFile(): void {
+    const data = JSON.stringify(logs, null, 2);
+    files.writeFile(LOGS_FILE, data, 'utf8', (err) => {
+        if (err) {
+            console.error('Error saving logs:', err);
+        }
+    });
+}
 
 export function CheckTimerStock(data: UserData, item: Stock, stock: StockData[]) {
     item.time--;
@@ -64,48 +107,55 @@ export function SellSelfStocks(id: string, data: UserData, userid: string, stock
         return true;
     }
 }
+
 function CheckChange(x: number, y: number): number {
     return (x > y) ? 1 : 0
+}
+
+function getRandomNumber(min:number, max:number): number {
+    return Math.random() * (max - min) + min;
 }
 function CheckCrit(x: number, y: number): number {
     return (x = y) ? 1 : 0
 }
+
 export function ChangeEveryHourStocks(data: UserData, Stocks: StockData[]) {
+    logs = Readlogs();
     var critChanged = Math.floor(Math.random() * 100)
-    var changelist = []
+    var changelist: number[] = []
     for (let i = 0; i <= 6; i++) {
         changelist[i] = Math.floor(Math.random() * 100)
     }
     // change item 1 67% at 18.0 bonus 10.0
-    ChangeStocked(Stocks, "btc", CheckChange(changelist[0], 67), CheckCrit(critChanged, changelist[0]), 18.0, 10.0, 115.0)
+    ChangeStocked(Stocks, "btc", CheckChange(changelist[0], 67), CheckCrit(critChanged, changelist[0]), 3.0, 17.0, 30.0)
     // Change item 2 54% at 8.0 bonus 24.0
-    ChangeStocked(Stocks, "rtx", CheckChange(changelist[1], 54), CheckCrit(critChanged, changelist[1]), 8.0, 24.0, 55.0)
+    ChangeStocked(Stocks, "rtx", CheckChange(changelist[1], 54), CheckCrit(critChanged, changelist[1]), 0.0, 12.0, 24.0)
     // Change item 3 32% at 5.0 bonus 4.0
-    ChangeStocked(Stocks, "crn", CheckChange(changelist[2], 32), CheckCrit(critChanged, changelist[2]), 5.0, 4.0, 30.0)
+    ChangeStocked(Stocks, "crn", CheckChange(changelist[2], 32), CheckCrit(critChanged, changelist[2]), 3.0, 4.0, 20.0)
     // Change item 4 30% at 0.0 bonus 8.0
-    ChangeStocked(Stocks, "ppp", CheckChange(changelist[3], 31), CheckCrit(critChanged, changelist[3]), 0.0, 8.0, 30.0)
+    ChangeStocked(Stocks, "ppp", CheckChange(changelist[3], 31), CheckCrit(critChanged, changelist[3]), 0.0, 3.0, 10.0)
     // Change item 5 25% at 1.0 bonus 1.5
-    ChangeStocked(Stocks, "pep", CheckChange(changelist[4], 25), CheckCrit(critChanged, changelist[4]), 1.0, 1.5, 15.0)
+    ChangeStocked(Stocks, "pep", CheckChange(changelist[4], 25), CheckCrit(critChanged, changelist[4]), 0.5, 1.5, 5.0)
     // Change item 6 9% at 0.1 bonus 0.2 
     ChangeStocked(Stocks, "jev", CheckChange(changelist[5], 9), CheckCrit(critChanged, changelist[5]), 0.1, 0.2, 1)
-    console.log("Stocks changed");
-    console.log("--------------------------------")
     if (data.Stocks.length > 0)
         for (const item of data.Stocks) {
             CheckTimerStock(data, item, Stocks)
         }
-    console.log("Stocks decayed");
+    console.log("Stocks changed & decayed");
     console.log("--------------------------------")
+    addLog(Stocks)
+    console.log("log files is up to date")
 }
 
 export function ChangeStocked(StockArray: StockData[], id: string, IsStockedUp: number, IsCrit: number, base: number, randombase: number, critRate: number) {
-    var Stockitem = StockArray.find((item) => item.id === id);
     var i = StockArray.findIndex(item => item.id == id)
+    var Stockitem = StockArray.at(i);
     //calculate random variable
-    var Changebase = Math.random() * randombase;
+    var BetweenChange = getRandomNumber(base, randombase)
     var CritChangebase = IsCrit * critRate;
     //calculate Value changed
-    var NewValue = Stockitem.value + (IsStockedUp ? 1 : -1) * (base + Changebase + CritChangebase);
+    var NewValue = Stockitem.value + (IsStockedUp ? 1 : -1) * (BetweenChange + CritChangebase);
     if (NewValue < 0) NewValue = 0.01;
     var OldValue = StockArray.at(i).value
     var NumberChange = parseFloat((NewValue - OldValue).toFixed(2));

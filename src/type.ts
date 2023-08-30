@@ -1,3 +1,5 @@
+import { AttachmentBuilder, EmbedBuilder } from "discord.js";
+
 export type StockData = {
     id: string,
     name: string,
@@ -20,4 +22,13 @@ export type Stock = {
 export type UserData = {
     Players: Player[];
     Stocks: Stock[];
+}
+export type LogData = {
+    stock: StockData[],
+    index: number
+}
+
+export type ChartDisplay = {
+    display: EmbedBuilder
+    image:  AttachmentBuilder
 }

@@ -2,7 +2,7 @@ import { ApplicationCommandOptionType, Client } from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 import dotenv from 'dotenv'
-import { UserData, StockData } from './type.js'
+import { UserData, StockData, ChartDisplay } from './type.js'
 import { commands } from './modules/Command.js';
 import {
     AddStock,
@@ -20,6 +20,7 @@ import {
 import {
     display,
     displaymsg,
+    StockDetailDisplay,
     StockDisplay,
 } from './modules/MessageFunction.js';
 import * as files from "fs"
@@ -29,22 +30,23 @@ const client = new Client({
 });
 
 dotenv.config()
-const token: string = process.env.CLIENT_TOKEN
 
+const token: string = process.env.CLIENT_TOKEN
 const rest = new REST({ version: '10' }).setToken(token);
 var TimeMinutes = 60;
-
 // Create Stocks
 var StockArray: StockData[] = JSON.parse(files.readFileSync('./modules/Stock.json', 'utf8'));
-var data: UserData = {
-    Players: [],
-    Stocks: [],
-};
+var data: UserData = Readfiles()
 
-function Readfiles() {
+function Readfiles(): UserData {
     // read-file
-    var rawdata = files.readFileSync('Players.json', 'utf8');
-    data = JSON.parse(rawdata);
+    try {
+        var rawdata = files.readFileSync('Players.json', 'utf8');
+        return JSON.parse(rawdata);
+    }
+    catch (err) {
+        return { Players: [], Stocks: [] };
+    }
 }
 
 function Writefile(path: string, data: any) {
@@ -71,8 +73,6 @@ client.on('ready', async () => {
             console.error(`Error registering commands for ${guild.name}: ${guildId}:`, error);
         }
     });
-    Readfiles();
-    console.log('storage file is up to date')
     Reminders(TimeMinutes);
     console.log('Timer started');
 });
@@ -113,7 +113,6 @@ client.login(token);
 
 //check id is in json list
 function FindId(id: string) {
-    Readfiles()
     var p = data.Players.find(player => player.id == id)
     if (p == undefined) return false
     else return true
@@ -194,6 +193,10 @@ client.on('interactionCreate', async (interaction) => {
             Reminders(TimeMinutes)
             Writefile('Players.json', data)
             await interaction.reply('ok!')
+        }
+        if (commandName === "graph") {
+            const displays: ChartDisplay = await StockDetailDisplay(client)
+            await interaction.reply({ embeds: [displays.display] ,files: [displays.image]})
         }
     }
     catch (error) {
