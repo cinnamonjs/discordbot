@@ -4,6 +4,8 @@ export type StockData = {
     id: string,
     name: string,
     value: number,
+    margintop: number,
+    marginbottom: number,
     changed: string
 }
 export type Player = {

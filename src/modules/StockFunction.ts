@@ -29,7 +29,6 @@ function addLog(stocks: StockData[]): void {
     })
     if (logs.length >= MAX_LOGS) {
         const highestIndex = logs.reduce((prev, current) => (current.index > prev.index ? current : prev));
-        console.log(highestIndex)
         logs = logs.filter(log => log !== highestIndex);
     }
     saveLogsToFile()
@@ -115,8 +114,24 @@ function CheckChange(x: number, y: number): number {
 function getRandomNumber(min:number, max:number): number {
     return Math.random() * (max - min) + min;
 }
+
+// algorithm random stock up and stock down
+function getRandomBaseMinMaxBias(stock: StockData, Ratio: number): number {
+    const currentValue = stock.value
+    const distToMax = stock.margintop - currentValue;
+    const distToMin = currentValue - stock.marginbottom;
+    const Avgdist = (distToMax - distToMin) / (stock.margintop - stock.marginbottom) * 100;
+    if (distToMin < 0) return 0;
+    if (distToMax < 0) return 100;
+    console.log(stock.id , distToMax, distToMin ,Avgdist)
+    return Avgdist > 0 ? Avgdist - Ratio : Avgdist + Ratio;
+}
 function CheckCrit(x: number, y: number): number {
     return (x = y) ? 1 : 0
+}
+
+function getIndexStock(stock: StockData[], name: string):number {
+    return stock.findIndex(item => item.id == name)
 }
 
 export function ChangeEveryHourStocks(data: UserData, Stocks: StockData[]) {
@@ -127,15 +142,15 @@ export function ChangeEveryHourStocks(data: UserData, Stocks: StockData[]) {
         changelist[i] = Math.floor(Math.random() * 100)
     }
     // change item 1 67% at 18.0 bonus 10.0
-    ChangeStocked(Stocks, "btc", CheckChange(changelist[0], 67), CheckCrit(critChanged, changelist[0]), 3.0, 17.0, 30.0)
+    ChangeStocked(Stocks, "btc", CheckChange(changelist[0], getRandomBaseMinMaxBias(Stocks.at(getIndexStock(Stocks, "btc")), 27)), CheckCrit(critChanged, changelist[0]), 3.0, 17.0, 30.0)
     // Change item 2 54% at 8.0 bonus 24.0
-    ChangeStocked(Stocks, "rtx", CheckChange(changelist[1], 54), CheckCrit(critChanged, changelist[1]), 0.0, 12.0, 24.0)
+    ChangeStocked(Stocks, "rtx", CheckChange(changelist[1], getRandomBaseMinMaxBias(Stocks.at(getIndexStock(Stocks, "rtx")), 20)), CheckCrit(critChanged, changelist[1]), 0.0, 12.0, 24.0)
     // Change item 3 32% at 5.0 bonus 4.0
-    ChangeStocked(Stocks, "crn", CheckChange(changelist[2], 32), CheckCrit(critChanged, changelist[2]), 3.0, 4.0, 20.0)
+    ChangeStocked(Stocks, "crn", CheckChange(changelist[2], getRandomBaseMinMaxBias(Stocks.at(getIndexStock(Stocks, "crn")), 17)), CheckCrit(critChanged, changelist[2]), 3.0, 4.0, 20.0)
     // Change item 4 30% at 0.0 bonus 8.0
-    ChangeStocked(Stocks, "ppp", CheckChange(changelist[3], 31), CheckCrit(critChanged, changelist[3]), 0.0, 3.0, 10.0)
+    ChangeStocked(Stocks, "ppp", CheckChange(changelist[3], getRandomBaseMinMaxBias(Stocks.at(getIndexStock(Stocks, "ppp")), 13)), CheckCrit(critChanged, changelist[3]), 0.0, 3.0, 10.0)
     // Change item 5 25% at 1.0 bonus 1.5
-    ChangeStocked(Stocks, "pep", CheckChange(changelist[4], 25), CheckCrit(critChanged, changelist[4]), 0.5, 1.5, 5.0)
+    ChangeStocked(Stocks, "pep", CheckChange(changelist[4], getRandomBaseMinMaxBias(Stocks.at(getIndexStock(Stocks, "pep")), 11)), CheckCrit(critChanged, changelist[4]), 0.5, 1.5, 5.0)
     // Change item 6 9% at 0.1 bonus 0.2 
     ChangeStocked(Stocks, "jev", CheckChange(changelist[5], 9), CheckCrit(critChanged, changelist[5]), 0.1, 0.2, 1)
     if (data.Stocks.length > 0)

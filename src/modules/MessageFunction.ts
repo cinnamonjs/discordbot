@@ -91,7 +91,7 @@ export function command(bot: Client) {
 export async function StockDetailDisplay(bot: Client): Promise<ChartDisplay> {
     var logArray: LogData[] = JSON.parse(files.readFileSync('./log.json', 'utf8'));
     logArray.sort((a, b) => b.index - a.index);
-    const bufferResult: Buffer = await ChartStock(logArray);
+    const bufferResult = await ChartStock(logArray);
     const attachmentimage = new AttachmentBuilder(bufferResult ,{ name: "image-attachment.png"});
     const display = new EmbedBuilder()
         .setColor("#00b0f4")

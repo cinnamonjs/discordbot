@@ -4,38 +4,50 @@
       {
         "id": "btc",
         "name": "บิงชิลิ่งคอยน์ (BTC) 🪙",
-        "value": 726.65,
-        "changed": "➘ -85.72(-10.55%)"
+        "value": 1259.83,
+        "margintop": 1700,
+        "marginbottom": 1200,
+        "changed": "➚ +38.73(+3.17%)"
       },
       {
         "id": "rtx",
         "name": "การ์ดจอ (RTX) 💻",
-        "value": 1057.4,
-        "changed": "➚ +57.55(+5.76%)"
+        "value": 1058.01,
+        "margintop": 1200,
+        "marginbottom": 800,
+        "changed": "➚ +25.19(+2.44%)"
       },
       {
         "id": "crn",
         "name": "ข้าวโพด (CRN) 🌽",
-        "value": 532.33,
-        "changed": "➚ +33.09(+6.63%)"
+        "value": 793.21,
+        "margintop": 1100,
+        "marginbottom": 600,
+        "changed": "➚ +23.06(+2.99%)"
       },
       {
         "id": "ppp",
         "name": "น้ำมันพืช (PPP) 🛢️",
-        "value": 470.05,
-        "changed": "➚ +25.48(+5.73%)"
+        "value": 543.59,
+        "margintop": 750,
+        "marginbottom": 300,
+        "changed": "➚ +10.14(+1.9%)"
       },
       {
         "id": "pep",
         "name": "เปปซี่ (PEP) 🥤",
-        "value": 551,
-        "changed": "➚ +16.69(+3.12%)"
+        "value": 461.57,
+        "margintop": 600,
+        "marginbottom": 200,
+        "changed": "➚ +5.69(+1.25%)"
       },
       {
         "id": "jev",
         "name": "Jurassic ev charger (JEV) 🚎",
-        "value": 106.01,
-        "changed": "➚ +1.26(+1.2%)"
+        "value": 103.28,
+        "margintop": 100,
+        "marginbottom": 100,
+        "changed": "➚ +1.17(+1.14%)"
       }
     ],
     "index": 9
@@ -45,38 +57,50 @@
       {
         "id": "btc",
         "name": "บิงชิลิ่งคอยน์ (BTC) 🪙",
-        "value": 815.87,
-        "changed": "➚ +89.22(+12.28%)"
+        "value": 1299.87,
+        "margintop": 1700,
+        "marginbottom": 1200,
+        "changed": "➚ +40.04(+3.18%)"
       },
       {
         "id": "rtx",
         "name": "การ์ดจอ (RTX) 💻",
-        "value": 1105.59,
-        "changed": "➚ +48.19(+4.56%)"
+        "value": 1085.79,
+        "margintop": 1200,
+        "marginbottom": 800,
+        "changed": "➚ +27.78(+2.63%)"
       },
       {
         "id": "crn",
         "name": "ข้าวโพด (CRN) 🌽",
-        "value": 565.93,
-        "changed": "➚ +33.6(+6.31%)"
+        "value": 817.09,
+        "margintop": 1100,
+        "marginbottom": 600,
+        "changed": "➚ +23.88(+3.01%)"
       },
       {
         "id": "ppp",
         "name": "น้ำมันพืช (PPP) 🛢️",
-        "value": 497.98,
-        "changed": "➚ +27.93(+5.94%)"
+        "value": 555.1,
+        "margintop": 750,
+        "marginbottom": 300,
+        "changed": "➚ +11.51(+2.12%)"
       },
       {
         "id": "pep",
         "name": "เปปซี่ (PEP) 🥤",
-        "value": 567.53,
-        "changed": "➚ +16.53(+3%)"
+        "value": 467.35,
+        "margintop": 600,
+        "marginbottom": 200,
+        "changed": "➚ +5.78(+1.25%)"
       },
       {
         "id": "jev",
         "name": "Jurassic ev charger (JEV) 🚎",
-        "value": 107.19,
-        "changed": "➚ +1.18(+1.11%)"
+        "value": 104.46,
+        "margintop": 100,
+        "marginbottom": 100,
+        "changed": "➚ +1.18(+1.14%)"
       }
     ],
     "index": 8
@@ -86,38 +110,50 @@
       {
         "id": "btc",
         "name": "บิงชิลิ่งคอยน์ (BTC) 🪙",
-        "value": 905.48,
-        "changed": "➚ +89.61(+10.98%)"
+        "value": 1336.81,
+        "margintop": 1700,
+        "marginbottom": 1200,
+        "changed": "➚ +36.94(+2.84%)"
       },
       {
         "id": "rtx",
         "name": "การ์ดจอ (RTX) 💻",
-        "value": 1153.92,
-        "changed": "➚ +48.33(+4.37%)"
+        "value": 1112.11,
+        "margintop": 1200,
+        "marginbottom": 800,
+        "changed": "➚ +26.32(+2.42%)"
       },
       {
         "id": "crn",
         "name": "ข้าวโพด (CRN) 🌽",
-        "value": 600.84,
-        "changed": "➚ +34.91(+6.17%)"
+        "value": 840.65,
+        "margintop": 1100,
+        "marginbottom": 600,
+        "changed": "➚ +23.56(+2.88%)"
       },
       {
         "id": "ppp",
         "name": "น้ำมันพืช (PPP) 🛢️",
-        "value": 525.84,
-        "changed": "➚ +27.86(+5.6%)"
+        "value": 566.23,
+        "margintop": 750,
+        "marginbottom": 300,
+        "changed": "➚ +11.13(+2.01%)"
       },
       {
         "id": "pep",
         "name": "เปปซี่ (PEP) 🥤",
-        "value": 551.21,
-        "changed": "➘ -16.32(-2.88%)"
+        "value": 473.16,
+        "margintop": 600,
+        "marginbottom": 200,
+        "changed": "➚ +5.81(+1.24%)"
       },
       {
         "id": "jev",
         "name": "Jurassic ev charger (JEV) 🚎",
-        "value": 108.43,
-        "changed": "➚ +1.24(+1.16%)"
+        "value": 105.64,
+        "margintop": 100,
+        "marginbottom": 100,
+        "changed": "➚ +1.18(+1.13%)"
       }
     ],
     "index": 7
@@ -127,38 +163,50 @@
       {
         "id": "btc",
         "name": "บิงชิลิ่งคอยน์ (BTC) 🪙",
-        "value": 997.29,
-        "changed": "➚ +91.81(+10.14%)"
+        "value": 1142.7,
+        "margintop": 1700,
+        "marginbottom": 1200,
+        "changed": "➚ +42.7(+3.88%)"
       },
       {
         "id": "rtx",
         "name": "การ์ดจอ (RTX) 💻",
-        "value": 1206.28,
-        "changed": "➚ +52.36(+4.54%)"
+        "value": 1034.4,
+        "margintop": 1200,
+        "marginbottom": 800,
+        "changed": "➚ +34.4(+3.44%)"
       },
       {
         "id": "crn",
         "name": "ข้าวโพด (CRN) 🌽",
-        "value": 633.99,
-        "changed": "➚ +33.15(+5.52%)"
+        "value": 723.61,
+        "margintop": 1100,
+        "marginbottom": 600,
+        "changed": "➚ +23.61(+3.37%)"
       },
       {
         "id": "ppp",
         "name": "น้ำมันพืช (PPP) 🛢️",
-        "value": 551.75,
-        "changed": "➚ +25.91(+4.93%)"
+        "value": 510.9,
+        "margintop": 750,
+        "marginbottom": 300,
+        "changed": "➚ +10.9(+2.18%)"
       },
       {
         "id": "pep",
         "name": "เปปซี่ (PEP) 🥤",
-        "value": 549.81,
-        "changed": "➘ -1.4(-0.25%)"
+        "value": 455.52,
+        "margintop": 600,
+        "marginbottom": 200,
+        "changed": "➚ +5.52(+1.23%)"
       },
       {
         "id": "jev",
         "name": "Jurassic ev charger (JEV) 🚎",
-        "value": 109.63,
-        "changed": "➚ +1.2(+1.11%)"
+        "value": 101.15,
+        "margintop": 100,
+        "marginbottom": 100,
+        "changed": "➚ +1.15(+1.15%)"
       }
     ],
     "index": 6
@@ -168,38 +216,50 @@
       {
         "id": "btc",
         "name": "บิงชิลิ่งคอยน์ (BTC) 🪙",
-        "value": 1090.33,
-        "changed": "➚ +93.04(+9.33%)"
+        "value": 1140.38,
+        "margintop": 1700,
+        "marginbottom": 1200,
+        "changed": "➚ +40.38(+3.67%)"
       },
       {
         "id": "rtx",
         "name": "การ์ดจอ (RTX) 💻",
-        "value": 1260.54,
-        "changed": "➚ +54.26(+4.5%)"
+        "value": 1031.85,
+        "margintop": 1200,
+        "marginbottom": 800,
+        "changed": "➚ +31.85(+3.18%)"
       },
       {
         "id": "crn",
         "name": "ข้าวโพด (CRN) 🌽",
-        "value": 599.99,
-        "changed": "➘ -34(-5.36%)"
+        "value": 723.12,
+        "margintop": 1100,
+        "marginbottom": 600,
+        "changed": "➚ +23.12(+3.3%)"
       },
       {
         "id": "ppp",
         "name": "น้ำมันพืช (PPP) 🛢️",
-        "value": 577.16,
-        "changed": "➚ +25.41(+4.61%)"
+        "value": 487.83,
+        "margintop": 750,
+        "marginbottom": 300,
+        "changed": "➘ -12.17(-2.43%)"
       },
       {
         "id": "pep",
         "name": "เปปซี่ (PEP) 🥤",
-        "value": 565.81,
-        "changed": "➚ +16(+2.91%)"
+        "value": 455.74,
+        "margintop": 600,
+        "marginbottom": 200,
+        "changed": "➚ +5.74(+1.28%)"
       },
       {
         "id": "jev",
         "name": "Jurassic ev charger (JEV) 🚎",
-        "value": 108.48,
-        "changed": "➘ -1.15(-1.05%)"
+        "value": 101.17,
+        "margintop": 100,
+        "marginbottom": 100,
+        "changed": "➚ +1.17(+1.17%)"
       }
     ],
     "index": 5
@@ -209,38 +269,50 @@
       {
         "id": "btc",
         "name": "บิงชิลิ่งคอยน์ (BTC) 🪙",
-        "value": 1065.75,
-        "changed": "➘ -34.25(-3.11%)"
+        "value": 1145.72,
+        "margintop": 1700,
+        "marginbottom": 1200,
+        "changed": "➚ +45.72(+4.16%)"
       },
       {
         "id": "rtx",
         "name": "การ์ดจอ (RTX) 💻",
-        "value": 974.82,
-        "changed": "➘ -25.18(-2.52%)"
+        "value": 1026.27,
+        "margintop": 1200,
+        "marginbottom": 800,
+        "changed": "➚ +26.27(+2.63%)"
       },
       {
         "id": "crn",
         "name": "ข้าวโพด (CRN) 🌽",
-        "value": 723.03,
-        "changed": "➚ +23.03(+3.29%)"
+        "value": 676.56,
+        "margintop": 1100,
+        "marginbottom": 600,
+        "changed": "➘ -23.44(-3.35%)"
       },
       {
         "id": "ppp",
         "name": "น้ำมันพืช (PPP) 🛢️",
-        "value": 510.32,
-        "changed": "➚ +10.32(+2.06%)"
+        "value": 510.86,
+        "margintop": 750,
+        "marginbottom": 300,
+        "changed": "➚ +10.86(+2.17%)"
       },
       {
         "id": "pep",
         "name": "เปปซี่ (PEP) 🥤",
-        "value": 444.27,
-        "changed": "➘ -5.73(-1.27%)"
+        "value": 455.82,
+        "margintop": 600,
+        "marginbottom": 200,
+        "changed": "➚ +5.82(+1.29%)"
       },
       {
         "id": "jev",
         "name": "Jurassic ev charger (JEV) 🚎",
-        "value": 101.19,
-        "changed": "➚ +1.19(+1.19%)"
+        "value": 101.16,
+        "margintop": 100,
+        "marginbottom": 100,
+        "changed": "➚ +1.16(+1.16%)"
       }
     ],
     "index": 4
@@ -250,38 +322,50 @@
       {
         "id": "btc",
         "name": "บิงชิลิ่งคอยน์ (BTC) 🪙",
-        "value": 1026.46,
-        "changed": "➘ -39.29(-3.69%)"
+        "value": 1139.98,
+        "margintop": 1700,
+        "marginbottom": 1200,
+        "changed": "➚ +39.98(+3.63%)"
       },
       {
         "id": "rtx",
         "name": "การ์ดจอ (RTX) 💻",
-        "value": 939.7,
-        "changed": "➘ -35.12(-3.6%)"
+        "value": 1031.8,
+        "margintop": 1200,
+        "marginbottom": 800,
+        "changed": "➚ +31.8(+3.18%)"
       },
       {
         "id": "crn",
         "name": "ข้าวโพด (CRN) 🌽",
-        "value": 746.1,
-        "changed": "➚ +23.07(+3.19%)"
+        "value": 676.24,
+        "margintop": 1100,
+        "marginbottom": 600,
+        "changed": "➘ -23.76(-3.39%)"
       },
       {
         "id": "ppp",
         "name": "น้ำมันพืช (PPP) 🛢️",
-        "value": 522.39,
-        "changed": "➚ +12.07(+2.37%)"
+        "value": 501.99,
+        "margintop": 750,
+        "marginbottom": 300,
+        "changed": "➚ +1.99(+0.4%)"
       },
       {
         "id": "pep",
         "name": "เปปซี่ (PEP) 🥤",
-        "value": 450.73,
-        "changed": "➚ +6.46(+1.45%)"
+        "value": 456.25,
+        "margintop": 600,
+        "marginbottom": 200,
+        "changed": "➚ +6.25(+1.39%)"
       },
       {
         "id": "jev",
         "name": "Jurassic ev charger (JEV) 🚎",
-        "value": 102.38,
-        "changed": "➚ +1.19(+1.18%)"
+        "value": 98.9,
+        "margintop": 100,
+        "marginbottom": 100,
+        "changed": "➘ -1.1(-1.1%)"
       }
     ],
     "index": 3
@@ -291,38 +375,50 @@
       {
         "id": "btc",
         "name": "บิงชิลิ่งคอยน์ (BTC) 🪙",
-        "value": 1065.22,
-        "changed": "➚ +38.76(+3.78%)"
+        "value": 1177.68,
+        "margintop": 1700,
+        "marginbottom": 1200,
+        "changed": "➚ +37.7(+3.31%)"
       },
       {
         "id": "rtx",
         "name": "การ์ดจอ (RTX) 💻",
-        "value": 975.03,
-        "changed": "➚ +35.33(+3.76%)"
+        "value": 1067.01,
+        "margintop": 1200,
+        "marginbottom": 800,
+        "changed": "➚ +35.21(+3.41%)"
       },
       {
         "id": "crn",
         "name": "ข้าวโพด (CRN) 🌽",
-        "value": 723.07,
-        "changed": "➘ -23.03(-3.09%)"
+        "value": 699.52,
+        "margintop": 1100,
+        "marginbottom": 600,
+        "changed": "➚ +23.28(+3.44%)"
       },
       {
         "id": "ppp",
         "name": "น้ำมันพืช (PPP) 🛢️",
-        "value": 533.27,
-        "changed": "➚ +10.88(+2.08%)"
+        "value": 512.76,
+        "margintop": 750,
+        "marginbottom": 300,
+        "changed": "➚ +10.77(+2.15%)"
       },
       {
         "id": "pep",
         "name": "เปปซี่ (PEP) 🥤",
-        "value": 457.17,
-        "changed": "➚ +6.44(+1.43%)"
+        "value": 462.36,
+        "margintop": 600,
+        "marginbottom": 200,
+        "changed": "➚ +6.11(+1.34%)"
       },
       {
         "id": "jev",
         "name": "Jurassic ev charger (JEV) 🚎",
-        "value": 103.54,
-        "changed": "➚ +1.16(+1.13%)"
+        "value": 100.06,
+        "margintop": 100,
+        "marginbottom": 100,
+        "changed": "➚ +1.16(+1.17%)"
       }
     ],
     "index": 2
@@ -332,38 +428,50 @@
       {
         "id": "btc",
         "name": "บิงชิลิ่งคอยน์ (BTC) 🪙",
-        "value": 1105.2,
-        "changed": "➚ +39.98(+3.75%)"
+        "value": 1224.44,
+        "margintop": 1700,
+        "marginbottom": 1200,
+        "changed": "➚ +46.76(+3.97%)"
       },
       {
         "id": "rtx",
         "name": "การ์ดจอ (RTX) 💻",
-        "value": 1008.48,
-        "changed": "➚ +33.45(+3.43%)"
+        "value": 1102.13,
+        "margintop": 1200,
+        "marginbottom": 800,
+        "changed": "➚ +35.12(+3.29%)"
       },
       {
         "id": "crn",
         "name": "ข้าวโพด (CRN) 🌽",
-        "value": 746.39,
-        "changed": "➚ +23.32(+3.23%)"
+        "value": 722.74,
+        "margintop": 1100,
+        "marginbottom": 600,
+        "changed": "➚ +23.22(+3.32%)"
       },
       {
         "id": "ppp",
         "name": "น้ำมันพืช (PPP) 🛢️",
-        "value": 544.94,
-        "changed": "➚ +11.67(+2.19%)"
+        "value": 525.73,
+        "margintop": 750,
+        "marginbottom": 300,
+        "changed": "➚ +12.97(+2.53%)"
       },
       {
         "id": "pep",
         "name": "เปปซี่ (PEP) 🥤",
-        "value": 451.45,
-        "changed": "➘ -5.72(-1.25%)"
+        "value": 468.05,
+        "margintop": 600,
+        "marginbottom": 200,
+        "changed": "➚ +5.69(+1.23%)"
       },
       {
         "id": "jev",
         "name": "Jurassic ev charger (JEV) 🚎",
-        "value": 102.37,
-        "changed": "➘ -1.17(-1.13%)"
+        "value": 101.22,
+        "margintop": 100,
+        "marginbottom": 100,
+        "changed": "➚ +1.16(+1.16%)"
       }
     ],
     "index": 1
