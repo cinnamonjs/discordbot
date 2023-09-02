@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, Client } from 'discord.js';
+import { ApplicationCommandOptionType, Client, ComponentType, InteractionCollector } from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 import dotenv from 'dotenv'
@@ -15,6 +15,7 @@ import {
     CreateNewId,
     CheckCoin,
     RemoveCoin,
+    AddCoin,
 } from './modules/PlayerFunction.js';
 
 import {
@@ -22,7 +23,10 @@ import {
     displaymsg,
     StockDetailDisplay,
     StockDisplay,
+    GamblingDisplay,
 } from './modules/MessageFunction.js';
+
+import { GamblingProfiles } from './modules/GamblingFunction.js';
 import * as files from "fs"
 
 const client = new Client({
@@ -45,7 +49,7 @@ function Readfiles(): UserData {
         return JSON.parse(rawdata);
     }
     catch (err) {
-        return { Players: [], Stocks: [] };
+        return { Players: [], Stocks: [], Gambles: null };
     }
 }
 
@@ -196,7 +200,58 @@ client.on('interactionCreate', async (interaction) => {
         }
         if (commandName === "graph") {
             const displays: ChartDisplay = await StockDetailDisplay(client)
-            await interaction.reply({ embeds: [displays.display] ,files: [displays.image]})
+            await interaction.reply({ embeds: [displays.display], files: [displays.image] })
+        }
+        if (commandName === "give") {
+            const usergive = user;
+            const userget = options.getUser('user');
+            const amount = options.getNumber('give_amount');
+            if (!FindId(usergive.id)) CreateNewId(data, usergive.id, usergive.username), Writefile('Players.json', data);
+            if (!FindId(userget.id)) CreateNewId(data, userget.id, userget.username), Writefile('Players.json', data);
+            if (!CheckCoin(data, usergive.id, amount)) await interaction.reply({ embeds: [displaymsg('โอนเงิน 💵', 'เงินไม่พอที่จะซื้อหุ้นจำนวน ' + amount, user, client)] })
+            else {
+                success = RemoveCoin(data, usergive.id, amount)
+                const moneyleft = data.Players.find(players => players.id === usergive.id).Coin;
+                if (success) {
+                    AddCoin(data, userget.id, amount)
+                    Writefile('Players.json', data);
+                    await interaction.reply({ embeds: [displaymsg('โอนเงิน 💵', `โอนเงินจำนวน ${amount} \n ให้กับ ${userget.username} \n เงินคงเหลือ ${moneyleft}`, user, client)] })
+                }
+                else {
+                    await interaction.reply({ embeds: [displaymsg('โอนเงิน 💵', `การโอนเงินผิดพลาด ลองใหม่อีกครั้ง`, user, client)] })
+                }
+            }
+        }
+        if (commandName === "gambling") {
+            const usertype = options.getString('type');
+            if (usertype === 'dice' || data.Gambles === null) {
+                var Result = GamblingProfiles()
+                const offset = '🌠';
+                var SecretResult = [];
+                var PositionReveal = Math.floor(Math.random() * Result.result.length);
+                for (let i = 0; i < Result.result.length; i++) {
+                    if (PositionReveal === i) SecretResult.push(Result.result[i]);
+                    else SecretResult.push(offset);
+                }
+                data.Gambles = {
+                    result: Result.result,
+                    total: Result.total,
+                    bet: null,
+                };
+                await interaction.reply({embeds: [GamblingDisplay(SecretResult , client)]});
+                Writefile('./Players.json', data)
+                setTimeout(function () {
+                    interaction.deleteReply();
+                    data.Gambles = null;
+                }, 2 * 60 * 1000);
+            }
+            else await interaction.reply({ embeds: [displaymsg('เปิดพนัน 💵', `มีการพนันเปิดไว้อยู่แล้ว`, user, client)] })
+        }
+        if (commandName === "bet") {
+            const type = options.getString('type');
+            const bet_amount = options.getNumber('bet_amount');
+            const for_custom_number_type = options.getNumber('for_custom_number_type');
+            if (!CheckCoin(data, userId, bet_amount)) await interaction.reply({ embeds: [displaymsg('โอนเงิน 💵', 'เงินไม่พอที่จะซื้อหุ้นจำนวน ' + bet_amount, user, client)] })
         }
     }
     catch (error) {

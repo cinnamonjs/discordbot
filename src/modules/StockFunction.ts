@@ -111,8 +111,8 @@ function CheckChange(x: number, y: number): number {
     return (x > y) ? 1 : 0
 }
 
-function getRandomNumber(min:number, max:number): number {
-    return Math.random() * (max - min) + min;
+function getRandomNumber(min: number, max: number): number {
+    return (Math.random() * (max - min)) + min;
 }
 
 // algorithm random stock up and stock down
@@ -121,16 +121,22 @@ function getRandomBaseMinMaxBias(stock: StockData, Ratio: number): number {
     const distToMax = stock.margintop - currentValue;
     const distToMin = currentValue - stock.marginbottom;
     const Avgdist = (distToMax - distToMin) / (stock.margintop - stock.marginbottom) * 100;
-    if (distToMin < 0) return 0;
-    if (distToMax < 0) return 100;
-    console.log(stock.id , distToMax, distToMin ,Avgdist)
+    if (distToMin < 0) {
+        stock.marginbottom - 10;
+        return 0;
+    }
+    if (distToMax < 0) {
+        stock.margintop + 10;
+        return 100;
+    }
+    console.log(stock.id, distToMax, distToMin, Avgdist)
     return Avgdist > 0 ? Avgdist - Ratio : Avgdist + Ratio;
 }
 function CheckCrit(x: number, y: number): number {
-    return (x = y) ? 1 : 0
+    return (x === y) ? 1 : 0
 }
 
-function getIndexStock(stock: StockData[], name: string):number {
+function getIndexStock(stock: StockData[], name: string): number {
     return stock.findIndex(item => item.id == name)
 }
 
@@ -170,11 +176,11 @@ export function ChangeStocked(StockArray: StockData[], id: string, IsStockedUp: 
     var BetweenChange = getRandomNumber(base, randombase)
     var CritChangebase = IsCrit * critRate;
     //calculate Value changed
-    var NewValue = Stockitem.value + (IsStockedUp ? 1 : -1) * (BetweenChange + CritChangebase);
-    if (NewValue < 0) NewValue = 0.01;
-    var OldValue = StockArray.at(i).value
-    var NumberChange = parseFloat((NewValue - OldValue).toFixed(2));
-    var PercentChange = parseFloat(((NewValue - OldValue) * 100 / OldValue).toFixed(2));
-    StockArray.at(i).value = parseFloat(NewValue.toFixed(2));
+    var PercentChange = parseFloat(((IsStockedUp ? 1 : -1) * (BetweenChange + CritChangebase)).toFixed(2));
+    var NumberChange = parseFloat((PercentChange * Stockitem.value / 100).toFixed(2));
+    var NextValue = StockArray.at(i).value + NumberChange
+    if (NextValue < 0) NextValue = 0.01;
+    // collect data change
+    StockArray.at(i).value = parseFloat(NextValue.toFixed(2));
     StockArray.at(i).changed = (NumberChange >= 0 ? '➚ +' : '➘ ') + (NumberChange) + "(" + (PercentChange >= 0 ? '+' : '') + (PercentChange) + "%)";
 }

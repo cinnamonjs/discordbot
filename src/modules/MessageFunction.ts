@@ -43,13 +43,13 @@ export function display(data: UserData, user: any, bot: Client): EmbedBuilder {
 
 //display message
 export function displaymsg(header: string, message: string, user: any, bot: Client): EmbedBuilder {
-    var Desc = "> \u200B \n > พิจารณาความเสี่ยงก่อนการลงทุนทุกชนิด"
+    var Desc = "> \u200B \n > พิจารณาความเสี่ยงก่อนการลงทุนทุกชนิด \n > \u200B"
     const embed = new EmbedBuilder()
         .setColor(0x0099FF)
         .setTitle(header)
         .setAuthor({ name: `${user.username}`, iconURL: `${user.avatarURL()}` })
         .setDescription(Desc)
-        .addFields({ name: message, value: "  " })
+        .addFields({ name: `\n ${message} `, value: "\n" })
         .setFooter({ text: '@นักลงทุนแมน', iconURL: `${bot.user.avatarURL()}` })
         .setTimestamp()
     return embed
@@ -63,17 +63,22 @@ export function StockDisplay(stock: StockData[], bot: Client): EmbedBuilder {
         .setAuthor({ name: "info", iconURL: `${bot.user.avatarURL()}` })
         .setThumbnail(`${bot.user.avatarURL()}`)
         .addFields({ name: '\u200B', value: '\u200B' })
+        .addFields(
+            { name: "Stock (id) ", value: " ", inline: true },
+            { name: "Stock Value ", value: " ", inline: true },
+            { name: "Changed", value: " ", inline: true },
+        )
         .setFooter({ text: '@นักลงทุนแมน', iconURL: `${bot.user.avatarURL()}` })
         .setTimestamp()
 
     stock.forEach(stock => {
         display.addFields(
-            { name: "Stock (id) \u2002", value: stock.name, inline: true },
-            { name: "Stock Value \u2003", value: `${stock.value}`, inline: true },
-            { name: "Changed", value: stock.changed, inline: true },
-            { name: '\u2009', value: '\u2009' }
+            { name: " ", value: stock.name, inline: true },
+            { name: " ", value: `${stock.value}`, inline: true },
+            { name: " ", value: stock.changed, inline: true },
         );
     });
+    display.addFields({ name: '\u200B', value: '\u200B' })
     return display
 }
 
@@ -102,4 +107,26 @@ export async function StockDetailDisplay(bot: Client): Promise<ChartDisplay> {
         .setFooter({ text: '@นักลงทุนแมน', iconURL: `${bot.user.avatarURL()}` })
         .setTimestamp()
     return { display: display , image: attachmentimage };
+}
+
+export function GamblingDisplay(array: string[], bot: Client): EmbedBuilder {
+    const display = new EmbedBuilder()
+        .setColor("#00b0f4")
+        .setTitle("🎰 gambling zone")
+        .setDescription("> \u200B \n > พิจารณาความเสี่ยงก่อนการลงทุนทุกชนิด \n > \u200B")
+        .setAuthor({ name: "Dice", iconURL: `${bot.user.avatarURL()}` })
+        .setThumbnail(`${bot.user.avatarURL()}`)
+        .addFields({name: " ", value: `time duration: 2 minutes`})
+        .addFields({ name: '\u2001', value: '\u2001' })
+        .addFields(
+            { name: `\u2001|\u2001 ${array[0]} \u2001|\u2001 ${array[1]} \u2001|\u2001 ${array[2]} \u2001|`, value: " "}
+        )
+        .addFields({ name: '\u2001', value: '\u2001' })
+        .addFields(
+            { name: "--------------- Profit -------------", value: ` \u2001\u2001 high (>9) Profit: x2 \n\u2001 low (<9) Profit: x2 \n\u2001 middle (9) Profit: x9 \n\u2001 custom number (n) Profit: x12`},
+            { name: "------------------------------------", value: " "},
+        )
+        .setFooter({ text: '@นักลงทุนแมน', iconURL: `${bot.user.avatarURL()}` })
+        .setTimestamp()
+    return display
 }

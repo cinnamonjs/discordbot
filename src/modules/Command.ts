@@ -52,4 +52,85 @@ export const commands = [
             },
         ],
     },
+    {
+        name: 'give',
+        description: 'โอนเงินให้คนอื่น',
+        options: [
+            {
+                name: 'user',
+                description: 'คนที่จะโอนให้',
+                type: 6,
+                required: true,
+            },
+            {
+                name: 'give_amount',
+                description: 'จำนวนเงิน',
+                type: 10,
+                required: true,
+            },
+        ]
+    },
+    {
+        name: 'gambling',
+        description: 'เปิดโต๊ะพนัน',
+        options: [
+            {
+                name: 'type',
+                description: 'เลือกรายการที่ทำ',
+                type: 3,
+                required: true,
+                autocomplete: true,
+                choices: [
+                    {
+                        name: 'dice',
+                        value: 'dice',
+                    },
+                ]
+            }
+        ]
+    },
+    {
+        name: 'bet',
+        description: 'พนันไงน้อง',
+        options: [
+            {
+                name: 'type',
+                description: 'เลือกรายการที่ทำ',
+                type: 3,
+                required: true,
+                autocomplete: true,
+                choices: [
+                    {
+                        name: 'high',
+                        value: 'high'
+                    },
+                    {
+                        name: 'low',
+                        value: 'low'
+                    },
+                    {
+                        name: 'middle',
+                        value: 'middle'
+                    },
+                    {
+                        name: 'custom',
+                        value: 'custom'
+                    },
+                ]
+            },
+            {
+                name: 'bet_amount',
+                description: 'how much / เท่าไหร่  1000 100 10',
+                type: 10,
+                required: true,
+            },
+            {
+                name: 'for_custom_number_type',
+                description: 'จำนวนเลขลูกเต๋า',
+                type: 10,
+                required: false,
+            },
+        ]
+    },
+
 ];
